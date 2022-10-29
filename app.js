@@ -77,6 +77,7 @@ function showTemp(response) {
     }
   }
 
+  displayForecast();
   console.log(response.data);
 }
 
@@ -125,6 +126,36 @@ function displayCelsiusTemp(event) {
   temteratureElement.innerHTML = celsiusTemperature;
   fahrenheitLink.classList.remove("active");
   celsiusLink.classList.add("active");
+}
+function displayForecast() {
+  let weatherForecast = document.querySelector("#weather-forecast");
+  let forecastHtml = "";
+  let days = ["Mon", "Tue", "Wen"];
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `
+              <div class="col-2">
+              <ul>
+                <li class="other-day first">${day}</li>
+                <li>
+                  <img
+                    src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
+                    alt="#"
+                    class="img"
+                  />
+                </li>
+                <li>
+                  <span class="max-temp">16°</span>
+                  <span class="min-temp">10°</span>
+                </li>
+              </ul>
+            </div>
+    
+          `;
+  });
+
+  weatherForecast.innerHTML = forecastHtml;
 }
 
 let form = document.querySelector("#city-form");
