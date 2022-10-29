@@ -8,6 +8,8 @@ function search(cityUser) {
   let urlApi = `https://api.shecodes.io/weather/v1/current?query=${cityUser}&key=4e3d43265f7f3448fot5bf7a6b40260b&units=metric`;
   axios.get(urlApi).then(showTemp);
   console.log(urlApi);
+  let urlApiForecast = `https://api.shecodes.io/weather/v1/forecast?query=${cityUser}&key=4e3d43265f7f3448fot5bf7a6b40260b&units=metric`;
+  axios.get(urlApiForecast).then(showForecast);
 }
 function showCurrent() {
   navigator.geolocation.getCurrentPosition(handlePosition);
@@ -16,10 +18,16 @@ function handlePosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let urlApi = `https://api.shecodes.io/weather/v1/current?lat=${lat}&lon=${lon}&key=4e3d43265f7f3448fot5bf7a6b40260b&units=metric`;
-  console.log(urlApi);
   axios.get(urlApi).then(showTemp);
+  let urlApiForecast = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=4e3d43265f7f3448fot5bf7a6b40260b&units=metric`;
+  axios.get(urlApiForecast).then(showForecast);
 }
-
+function showForecast(response) {
+  let currentTime = response.data.daily[0].time * 1000;
+  let date = new Date(currentTime);
+  console.log(date);
+  console.log(response.data);
+}
 function showTemp(response) {
   let tempRound = Math.round(response.data.temperature.current);
   let temperature = document.querySelector("#temperature");
@@ -77,7 +85,6 @@ function showTemp(response) {
     }
   }
 
-  displayForecast();
   console.log(response.data);
 }
 
