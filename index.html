@@ -24,7 +24,9 @@
   <body>
     <div class="container weather-app">
       <div class="row align-items-end">
-        <div class="col-auto align-self-start logo">👩‍💻</div>
+        <div class="col-auto align-self-start logo">
+          <img src="earth_logo.png" alt="earth_logo" id="earth_logo" />
+        </div>
         <div class="col-auto">
           <form class="row g-3" id="city-form">
             <div class="col-auto">
@@ -78,14 +80,7 @@
                   id="icon"
                 />
                 <span id="temperature"></span>
-                <span class="units"
-                  ><a href="#" id="celsius-link" class="active">℃ </a>|<a
-                    href="#"
-                    id="fahrenheit-link"
-                  >
-                    ℉</a
-                  >
-                </span>
+                <span class="units">℃</span>
               </h2>
             </div>
             <div class="col-4 align-self-end">

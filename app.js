@@ -144,31 +144,11 @@ function formatData() {
     minute.innerHTML = `0${now.getMinutes()}`;
   }
 }
-function displayFahrenheitTemp(event) {
-  event.preventDefault();
-  let temteratureElement = document.querySelector("#temperature");
-  let fahrenheitTemp = (celsiusTemperature * 9) / 5 + 32;
-  temteratureElement.innerHTML = Math.round(fahrenheitTemp);
-  fahrenheitLink.classList.add("active");
-  celsiusLink.classList.remove("active");
-}
-function displayCelsiusTemp(event) {
-  event.preventDefault();
-  let temteratureElement = document.querySelector("#temperature");
-  temteratureElement.innerHTML = celsiusTemperature;
-  fahrenheitLink.classList.remove("active");
-  celsiusLink.classList.add("active");
-}
 
 let form = document.querySelector("#city-form");
 form.addEventListener("submit", handleSubmit);
 let currentButton = document.querySelector("#current");
 currentButton.addEventListener("click", showCurrent);
 
-let celsiusTemperature = null;
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemp);
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displayCelsiusTemp);
 formatData();
 search("Zaporizhzhia");

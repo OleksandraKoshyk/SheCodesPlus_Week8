@@ -46,8 +46,9 @@ ul {
   max-width: 70%;
   margin: 10px auto;
 }
-.logo {
-  font-size: 65px;
+#earth_logo {
+  max-width: 65px;
+  opacity: 0.8;
 }
 
 .time {
