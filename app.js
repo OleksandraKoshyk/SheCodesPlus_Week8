@@ -23,10 +23,35 @@ function handlePosition(position) {
   axios.get(urlApiForecast).then(showForecast);
 }
 function showForecast(response) {
-  let currentTime = response.data.daily[0].time * 1000;
-  let date = new Date(currentTime);
-  console.log(date);
-  console.log(response.data);
+  let forecast = response.data.daily;
+  let weatherForecastElement = document.querySelector("#weather-forecast");
+  let forecastHtml = "";
+  //for (let i = 0; i < 9; i++) {
+  for (let i = 1; i < forecast.length; i++) {
+    forecastHtml += `<div class="col-2">
+              <ul>
+                <li class="other-day first">${formatDay(forecast[i].time)}</li>
+                <li>
+                  <img
+                    src="${forecast[i].condition.icon_url}"
+                    alt="${forecast[i].condition.icon}"
+                    class="img"
+                  />
+                </li>
+                <li>
+                  <span class="max-temp">${Math.round(
+                    forecast[i].temperature.maximum
+                  )}°</span>
+                  <span class="min-temp">${Math.round(
+                    forecast[i].temperature.minimum
+                  )}°</span>
+                </li>
+              </ul>
+            </div>`;
+  }
+  console.log(forecastHtml);
+
+  weatherForecastElement.innerHTML = forecastHtml;
 }
 function showTemp(response) {
   let tempRound = Math.round(response.data.temperature.current);
@@ -87,15 +112,15 @@ function showTemp(response) {
 
   console.log(response.data);
 }
-
+function formatDay(time) {
+  let date = new Date(time * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+  console.log(days[day]);
+}
 function formatData() {
   let now = new Date();
-  now.getMinutes(); // 0,1,2, 12
-  now.getHours(); //1, 2, 3, 4
-  now.getDate(); //1, 2, 3, 4
-  now.getDay(); // 0, 1, 2
-  now.getMonth(); // 0, 1, 2
-  now.getFullYear(); // 2021
   let days = [
     "Sunday",
     "Monday",
@@ -133,36 +158,6 @@ function displayCelsiusTemp(event) {
   temteratureElement.innerHTML = celsiusTemperature;
   fahrenheitLink.classList.remove("active");
   celsiusLink.classList.add("active");
-}
-function displayForecast() {
-  let weatherForecast = document.querySelector("#weather-forecast");
-  let forecastHtml = "";
-  let days = ["Mon", "Tue", "Wen"];
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      `
-              <div class="col-2">
-              <ul>
-                <li class="other-day first">${day}</li>
-                <li>
-                  <img
-                    src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
-                    alt="#"
-                    class="img"
-                  />
-                </li>
-                <li>
-                  <span class="max-temp">16°</span>
-                  <span class="min-temp">10°</span>
-                </li>
-              </ul>
-            </div>
-    
-          `;
-  });
-
-  weatherForecast.innerHTML = forecastHtml;
 }
 
 let form = document.querySelector("#city-form");
